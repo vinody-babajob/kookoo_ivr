@@ -4,6 +4,7 @@ require dirname(__FILE__).'/KooKoo-PHP/kookoophp/response.php';//include respons
 
 $r = new response();
 $r->setFiller(true);
+
 if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
     $cd = new CollectDtmf(); //initiate new collect dtmf object
     $cd->addPlayText("Press 1, for sales");
@@ -16,7 +17,7 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
         $r->addPlayText("you have not given any input please re enter");
         $cd = new CollectDtmf(); //initiate new collect dtmf object
         $cd->addPlayText("Press 1, for sales");
-        $cd->addPlayText("Press 1, for to know about our company");
+        $cd->addPlayText("Press 2, for to know about our company");
         $r->addCollectDtmf($cd);
     }
 }else{
