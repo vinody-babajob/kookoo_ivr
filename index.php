@@ -14,7 +14,7 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
     $r->addCollectDtmf($cd);
     $_SESSION['next_goto'] = 'phonemenu';
 } elseif ($_SESSION['next_goto'] == 'phonemenu' && isset($_REQUEST['event']) && $_REQUEST['event'] == 'GotDTMF') {
-    if (isset($_REQUEST['data']) && !empty($_REQUEST['data']) && strlne($_REQUEST['data']) == 10) {
+    if (isset($_REQUEST['data']) && !empty($_REQUEST['data']) && strlne($_REQUEST['data']) >= 9) {
         
 
         $_SESSION['pref_num']=$_REQUEST['data'];
