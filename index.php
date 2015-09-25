@@ -24,8 +24,8 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
 	$r->addHangup();
 }
 
-$r->addPlayText("I Love Koo Koo"); // Play any text to play
-$r->addHangup();
+// $r->addPlayText("I Love Koo Koo"); // Play any text to play
+// $r->addHangup();
 $r->send();
 
 ?>
