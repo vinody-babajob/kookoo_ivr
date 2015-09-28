@@ -10,9 +10,11 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
     
 
     $r->dial('8885208669');
+
+    $_SESSION['next_goto'] = 'dialed';
     
 
-} elseif (isset($_REQUEST['event']) && $_REQUEST['event'] == 'Dial') {
+} elseif ($_SESSION['next_goto'] == 'dialed' && isset($_REQUEST['event']) && $_REQUEST['event'] == 'Dial') {
     if ($_REQUEST['status'] == 'answered') {
         $r->addPlayText("dialled number is answered");
     } else {
