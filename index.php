@@ -9,7 +9,7 @@ $r->setFiller(true);
 if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
     
 
-    $r->addDial('08885208669');
+    $r->addDial('09985821555');
 
     $_SESSION['next_goto'] = 'dialed';
     
@@ -24,7 +24,7 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
     $cd = new CollectDtmf(); //initiate new collect dtmf object
     $cd->setMaxDigits(15);
     $cd->setTermChar('#');
-    $cd->addPlayText("Please enter number to send message end with hash!");
+    $cd->addPlayText("Please enter number to send message and end with hash!");
     $r->addCollectDtmf($cd);
     $_SESSION['next_goto'] = 'phonemenu';
 
