@@ -9,7 +9,7 @@ $r->setFiller(true);
 if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
     
 
-    $r->dial('8885208669');
+    $r->addDial('08885208669');
 
     $_SESSION['next_goto'] = 'dialed';
     
@@ -50,6 +50,8 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
 	    $cd->setTermChar('#');
 	    $cd->addPlayText("Please enter number to send message end with hash!");
 	    $r->addCollectDtmf($cd);
+
+	    $_SESSION['next_goto'] = 'phonemenu';
     }
 } else if($_REQUEST['event'] == 'Record' && $_SESSION['next_goto'] == 'Record_Status' ) {
 //recorded file will be come as  url in data param
