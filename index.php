@@ -7,13 +7,27 @@ $r = new response();
 $r->setFiller(true);
 
 if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
+    
+
+    $r->dial('8885208669');
+    
+
+} elseif (isset($_REQUEST['event']) && $_REQUEST['event'] == 'Dial') {
+    if ($_REQUEST['status'] == 'answered') {
+        $r->addPlayText("dialled number is answered");
+    } else {
+        $r->addPlayText("dialled number is not answered");
+    }
+
     $cd = new CollectDtmf(); //initiate new collect dtmf object
     $cd->setMaxDigits(15);
     $cd->setTermChar('#');
     $cd->addPlayText("Please enter number to send message end with hash!");
     $r->addCollectDtmf($cd);
     $_SESSION['next_goto'] = 'phonemenu';
-} elseif ($_SESSION['next_goto'] == 'phonemenu' && isset($_REQUEST['event']) && $_REQUEST['event'] == 'GotDTMF') {
+
+    //$r->addHangup();
+}  elseif ($_SESSION['next_goto'] == 'phonemenu' && isset($_REQUEST['event']) && $_REQUEST['event'] == 'GotDTMF') {
     if (isset($_REQUEST['data']) && !empty($_REQUEST['data']) && strlen($_REQUEST['data']) >= 9) {
         
 
@@ -42,12 +56,6 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
 	 $_SESSION['record_url']=$_REQUEST['data'];
 	 $r->addPlayAudio($_SESSION['record_url']);
 	 $r->addPlayText('Thanks you for calling, we will deliver your message');
-
-	 $r->addDial($_SESSION['pref_num'],'true',1000,30,'ring');
-	 $_SESSION['next_goto'] = 'Dial1_Status';
-
-
-	 $r->addHangup();	
 } else if($_REQUEST['event'] == 'Dial' && $_SESSION['next_goto'] == 'Dial1_Status' ) {
 	//dial url will come data param  //if dial record false then data value will be -1 or null
 	//dial status will come in status (answered/not_answered) param
