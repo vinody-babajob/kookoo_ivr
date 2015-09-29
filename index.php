@@ -13,7 +13,7 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
 
     // $_SESSION['next_goto'] = 'dialed';
 
-    $_SESSION['pref_num']=$_REQUEST['data'];
+    // $_SESSION['pref_num']=$_REQUEST['data'];
 
     $r->addPlayText('Please Record Your Message to send!');
 
