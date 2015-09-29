@@ -3,8 +3,12 @@
 require dirname(__FILE__).'/PHPExcel/Classes/PHPExcel.php';
 require_once dirname(__FILE__).'/PHPExcel/Classes/PHPExcel/IOFactory.php';
 
+$excel_path = file_exists(dirname(__FILE__).'/downloads/';
+
 function getExcelObject($filename) {
-	if (file_exists(dirname(__FILE__).'/'.$filename)) {
+	global $excel_path;
+
+	if ($execl_path.$filename)) {
 		$objPHPExcel = PHPExcel_IOFactory::load($filename);
 	} else {
 		$objPHPExcel = new PHPExcel();
@@ -16,8 +20,10 @@ function getExcelObject($filename) {
 }
 
 function writeToExcel($filename, $objPHPExcel) {
+	global $excel_path;
+
 	$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
-	$objWriter->save($filename);
+	$objWriter->save($execl_path.$filename);
 }
 
 function getParseQueryArray($parseStr) {
