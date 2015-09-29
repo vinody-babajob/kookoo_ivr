@@ -3,27 +3,30 @@
 require dirname(__FILE__).'/PHPExcel/Classes/PHPExcel.php';
 require_once dirname(__FILE__).'/PHPExcel/Classes/PHPExcel/IOFactory.php';
 
-$excel_path = file_exists(dirname(__FILE__).'/downloads/';
+$excel_path = dirname(__FILE__).'/downloads/';
 
 function getExcelObject($filename) {
 	global $excel_path;
 
-	if ($execl_path.$filename)) {
-		$objPHPExcel = PHPExcel_IOFactory::load($filename);
+	$isnew = false;
+
+	if (file_exists($excel_path.$filename)) {
+		$objPHPExcel = PHPExcel_IOFactory::load($excel_path.$filename);
 	} else {
 		$objPHPExcel = new PHPExcel();
+		$new = true;
 	}
 	
 	$objPHPExcel->setActiveSheetIndex(0);
 
-	return $objPHPExcel;
+	return array($objPHPExcel, $isnew);
 }
 
 function writeToExcel($filename, $objPHPExcel) {
 	global $excel_path;
 
 	$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
-	$objWriter->save($execl_path.$filename);
+	$objWriter->save($excel_path.$filename);
 }
 
 function getParseQueryArray($parseStr) {
@@ -36,11 +39,22 @@ function getParseQueryArray($parseStr) {
 }
 
 function storeDataToExcel($filename, $data) {
-	$objPHPExcel = getExcelObject($filename);
-
-	$row = $objPHPExcel->getActiveSheet()->getHighestRow()+1;
+	$objInfo = getExcelObject($filename);
+	$objPHPExcel = $objInfo[0];
+	$isnew = $objInfo[1];
 
 	$colK = 'A';
+	$row = $objPHPExcel->getActiveSheet()->getHighestRow()+1;
+
+	if ($isnew) {
+		foreach ($data as $col => $value) {
+		    $objPHPExcel->getActiveSheet()->SetCellValue($colK.$row, $col);
+		    $colK++;
+		}
+	}
+
+	$colK = 'A';
+	$row = $objPHPExcel->getActiveSheet()->getHighestRow()+1;
 	// $objPHPExcel->getActiveSheet()->SetCellValue('F'.$row, $queryArray['CallSid']);
 
 	foreach ($data as $col => $value) {
