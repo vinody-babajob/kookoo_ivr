@@ -4,7 +4,12 @@ require dirname(__FILE__).'/PHPExcel/Classes/PHPExcel.php';
 require_once dirname(__FILE__).'/PHPExcel/Classes/PHPExcel/IOFactory.php';
 
 function getExcelObject($filename) {
-	$objPHPExcel = PHPExcel_IOFactory::load($filename);
+	if (file_exists(dirname(__FILE__).'/'.$filename)) {
+		$objPHPExcel = PHPExcel_IOFactory::load($filename);
+	} else {
+		$objPHPExcel = new PHPExcel();
+	}
+	
 	$objPHPExcel->setActiveSheetIndex(0);
 
 	return $objPHPExcel;
