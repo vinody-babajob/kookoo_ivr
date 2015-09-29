@@ -19,7 +19,7 @@ function getParseQueryArray($parseStr) {
 	$get_array = [];
 
 	if($parseStr !== '')
-		parse_str($get_string, $get_array);
+		parse_str($parseStr, $get_array);
 
 	return $get_array;
 }
