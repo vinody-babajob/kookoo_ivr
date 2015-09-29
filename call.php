@@ -14,7 +14,7 @@ function getExcelObject($filename) {
 		$objPHPExcel = PHPExcel_IOFactory::load($excel_path.$filename);
 	} else {
 		$objPHPExcel = new PHPExcel();
-		$new = true;
+		$isnew = true;
 	}
 	
 	$objPHPExcel->setActiveSheetIndex(0);
