@@ -5,6 +5,43 @@ require_once dirname(__FILE__).'/PHPExcel/Classes/PHPExcel/IOFactory.php';
 
 $excel_path = dirname(__FILE__).'/downloads/';
 
+define('GUSER', 'vinody@babajob.com'); // GMail username
+define('GPWD', '8885208669'); // GMail password
+
+
+function smtpmailer($to_array, $from, $from_name, $subject, $body, $is_gmail = true) { 
+	global $error;
+	$mail = new PHPMailer();
+	$mail->IsSMTP();
+	$mail->SMTPAuth = true; 
+	if ($is_gmail) {
+		$mail->SMTPSecure = 'ssl'; 
+		$mail->Host = 'smtp.gmail.com';
+		$mail->Port = 465;  
+		$mail->Username = GUSER;  
+		$mail->Password = GPWD;   
+	} else {
+		// $mail->Host = SMTPSERVER;
+		// $mail->Username = SMTPUSER;  
+		// $mail->Password = SMTPPWD;
+	}        
+	$mail->SetFrom($from, $from_name);
+	$mail->Subject = $subject;
+	$mail->Body = $body;
+
+	foreach ($to_array as $email) {
+		$mail->AddAddress($email);
+	}
+	
+	if(!$mail->Send()) {
+		$error = 'Mail error: '.$mail->ErrorInfo;
+		return false;
+	} else {
+		$error = 'Message sent!';
+		return true;
+	}
+}
+
 function getExcelObject($filename) {
 	global $excel_path;
 
@@ -65,14 +102,36 @@ function storeDataToExcel($filename, $data) {
 	writeToExcel($filename, $objPHPExcel);
 }
 
+function sendFileUpdateMail($subject, $body) {
+	$to = ['vinod.designer1@gmail.com'];//['krishnamoorthym@babajob.com','arpithag@babajob.com'];
+	$from = 'vinody@babajob.com';
+	$from_name = 'VinodY';
+
+	smtpmailer($to, $from, $from_name, $subject, $body, $is_gmail = true)
+}
+
 function storeVoiceData($queryArray) {
 	$filename = "voicemail.xlsx";
 	storeDataToExcel($filename, $queryArray);
+
+	$subject = 'A New VoiceMail';
+	$body = 'Hey,\n';
+	$body += 'New Voice Mail was added to excel sheet please check at http://52.10.138.252/downloads/' + $filename + '\n';
+	$body += 'Regards,\n Babajob IVR Team';
+
+	sendFileUpdateMail($subject, $body);
 }
 
 function storeCallAttemptData($queryArray) {
 	$filename = "callattempt.xlsx";
 	storeDataToExcel($filename, $queryArray);
+
+	$subject = 'A New Callattempt';
+	$body = 'Hey,\n';
+	$body += 'New call attempte was made. Please check excel sheet at http://52.10.138.252/downloads/' + $filename + '\n';
+	$body += 'Regards,\n Babajob IVR Team';
+
+	sendFileUpdateMail($subject, $body);
 }
 
 
