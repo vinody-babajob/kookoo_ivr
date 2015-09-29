@@ -9,9 +9,18 @@ $r->setFiller(true);
 if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
     
 
-    $r->addDial('09985821555');
+    // $r->addDial('09985821555');
 
-    $_SESSION['next_goto'] = 'dialed';
+    // $_SESSION['next_goto'] = 'dialed';
+
+    $_SESSION['pref_num']=$_REQUEST['data'];
+
+    $r->addPlayText('Please Record Your Message to send!');
+
+    //give unique file name for each recording
+	$r->addRecord('filename2','wav','120');
+
+    $_SESSION['next_goto'] == 'Record_Status';
     
 
 } elseif ($_SESSION['next_goto'] == 'dialed' && isset($_REQUEST['event']) && $_REQUEST['event'] == 'Dial') {
@@ -60,6 +69,7 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
 	 $_SESSION['record_url']=$_REQUEST['data'];
 	 $r->addPlayAudio($_SESSION['record_url']);
 	 $r->addPlayText('Thanks you for calling, we will deliver your message');
+	 
 } else if($_REQUEST['event'] == 'Dial' && $_SESSION['next_goto'] == 'Dial1_Status' ) {
 	//dial url will come data param  //if dial record false then data value will be -1 or null
 	//dial status will come in status (answered/not_answered) param
