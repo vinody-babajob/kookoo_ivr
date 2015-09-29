@@ -16,7 +16,7 @@ function smtpmailer($to_array, $from, $from_name, $subject, $body, $is_gmail = t
 	$mail->IsSMTP();
 	$mail->SMTPAuth = true;
 	$mail->isHTML(true);
-	
+
 	if ($is_gmail) {
 		$mail->SMTPSecure = 'tls'; 
 		$mail->Host = 'smtp.gmail.com';
@@ -131,8 +131,8 @@ function storeCallAttemptData($queryArray) {
 
 	$subject = 'A New Callattempt';
 	$body = 'Hey,<br>';
-	$body += 'New call attempte was made. Please check excel sheet at http://52.10.138.252/downloads/' . $filename . '<br>';
-	$body += 'Regards,<br> Babajob IVR Team';
+	$body .= 'New call attempte was made. Please check excel sheet at http://52.10.138.252/downloads/' . $filename . '<br>';
+	$body .= 'Regards,<br> Babajob IVR Team';
 
 	sendFileUpdateMail($subject, $body);
 }
