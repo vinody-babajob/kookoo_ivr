@@ -27,4 +27,8 @@ if (check_if_value($_REQUEST, 'event', 'NewCall')) {
 	$option = $_REQUEST['data'];
 
 	error_log(gettype($option));
+} else {
+	$r->addHangup();
 }
+
+$r->send();
