@@ -15,7 +15,7 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
 
     // $_SESSION['pref_num']=$_REQUEST['data'];
 
-    $r->addPlayText('Please Record Your Message to send!');
+    $r->addPlayText('Please Record Your Message to send press # after finishing your record!');
 
     //give unique file name for each recording
 	$r->addRecord('filename2','wav','120');
