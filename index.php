@@ -16,8 +16,8 @@ function check_if_value($array, $key, $value) {
 if (check_if_value($_REQUEST, 'event', 'NewCall')) {
 	$cd = new CollectDtmf(); //initiate new collect dtmf object
 	$cd->addPlayText("We have an opening for sales job in banglore");
-    $cd->addPlayText("Press 1, to hear same job but a different place");
-    $cd->addPlayText("Press 2, to hear a different job and different place");
+    $cd->addPlayText("Press 1, to hear same job but in different place");
+    $cd->addPlayText("Press 2, to hear about different job in different place");
     $cd->addPlayText("Press 3, to hear next job");
     $cd->setMaxDigits(1);
     $r->addCollectDtmf($cd);
