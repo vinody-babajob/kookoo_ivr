@@ -23,7 +23,7 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
     $_SESSION['next_goto'] == 'Record_Status';
     
 
-} elseif ($_SESSION['next_goto'] == 'dialed' && isset($_REQUEST['event']) && $_REQUEST['event'] == 'Dial') {
+} else if ($_SESSION['next_goto'] == 'dialed' && isset($_REQUEST['event']) && $_REQUEST['event'] == 'Dial') {
     if ($_REQUEST['status'] == 'answered') {
         $r->addPlayText("dialled number is answered");
     } else {
@@ -38,7 +38,7 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
     $_SESSION['next_goto'] = 'phonemenu';
 
     //$r->addHangup();
-}  elseif ($_SESSION['next_goto'] == 'phonemenu' && isset($_REQUEST['event']) && $_REQUEST['event'] == 'GotDTMF') {
+}  else if ($_SESSION['next_goto'] == 'phonemenu' && isset($_REQUEST['event']) && $_REQUEST['event'] == 'GotDTMF') {
     if (isset($_REQUEST['data']) && !empty($_REQUEST['data']) && strlen($_REQUEST['data']) >= 9) {
         
 
@@ -67,9 +67,10 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
 //print parameter data value
 	 $r->addPlayText('your recorded audio is ');
 	 $_SESSION['record_url']=$_REQUEST['data'];
+	 error_log($_SESSION['record_url']);
 	 $r->addPlayAudio($_SESSION['record_url']);
 	 $r->addPlayText('Thanks you for calling, we will deliver your message');
-	 
+
 } else if($_REQUEST['event'] == 'Dial' && $_SESSION['next_goto'] == 'Dial1_Status' ) {
 	//dial url will come data param  //if dial record false then data value will be -1 or null
 	//dial status will come in status (answered/not_answered) param
@@ -88,7 +89,7 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
 	// call is answered
 	 }
 	 
-} else{
+} else {
 	$r->addHangup();
 }
 
