@@ -61,7 +61,7 @@ function sameJbDiffLoc() {
 
 	$exculded_locations = &$_SESSION['exculded_locations'];
 
-	$cat_idx = $_SESSION['cat']
+	$cat_idx = $_SESSION['cat'];
 	$loc_idx = $_SESSION['location'];
 
 	$cat = $job_queue[ $cat_idx ];
@@ -90,7 +90,7 @@ function diffJbDiffLoc($diffloc = true) {
 
 	$exculded_locations = &$_SESSION['exculded_locations'];
 
-	$cat_idx = $_SESSION['cat']
+	$cat_idx = $_SESSION['cat'];
 	$loc_idx = $_SESSION['location'];
 
 	$loc = $job_locations[$cat][$loc_idx];
@@ -137,11 +137,6 @@ function diffJbDiffLoc($diffloc = true) {
 
 		$_SESSION['next_goto'] = 'nocat';
 	}
-
-	$cd = getJobDTMF("Delivery Boy", "Chennai");;
-	$r->addCollectDtmf($cd);
-
-	$_SESSION['next_goto'] = 'job_1';
 }
 
 
