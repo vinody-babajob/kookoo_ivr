@@ -229,6 +229,9 @@ if (checkIfValue($_REQUEST, 'event', 'NewCall')) {
 		$r->addHangup();
 	}
 } else if (checkIfValue($_REQUEST, 'event', 'GotDTMF') && checkIfValue($_SESSION, 'next_goto', 'nocat')) {
+	$option = $_REQUEST['data'];
+	$option = $option[0];
+	
 	if ($option == '1') {
 		// send sms for job list
 		$r->addHangup();
