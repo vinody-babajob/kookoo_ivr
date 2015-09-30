@@ -179,11 +179,9 @@ if (checkIfValue($_REQUEST, 'event', 'NewCall')) {
 
     	$_SESSION['next_goto'] = 'job_1_op1';
 	} else if ($option == '2') {
-		  
-		
+		  sameJbDiffLoc();
 	} else if ($option == '3') {
-
-		
+		diffJbDiffLoc();
 	} else {
 		$cat = $job_queue[ $_SESSION['cat'] ];
 		$loc = $job_locations[ $cat ][ $_SESSION['location'] ];
