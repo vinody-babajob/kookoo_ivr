@@ -20,7 +20,7 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
     //give unique file name for each recording
 	$r->addRecord('filename2','wav','120');
 
-    $_SESSION['next_goto'] == 'Record_Status';
+    $_SESSION['next_goto'] = 'Record_Status';
     
 
 } else if ($_SESSION['next_goto'] == 'dialed' && isset($_REQUEST['event']) && $_REQUEST['event'] == 'Dial') {
@@ -49,7 +49,7 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
         //give unique file name for each recording
 		$r->addRecord('filename2','wav','120');
 
-        $_SESSION['next_goto'] == 'Record_Status';
+        $_SESSION['next_goto'] = 'Record_Status';
 
     } else {
         $r->addPlayText("you have not given any input please re enter or wrong input");
