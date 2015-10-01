@@ -13,7 +13,27 @@ $job_locations =  array(
 	'Beautician' => ['Banglore', 'Chennai', 'Delhi']
 );
 
+$api_key = 'KKdaca8671027e1efec66026e87a8ce4f4';
 
+
+function curlGet($url) {
+	$curl = curl_init();
+	curl_setopt($curl, CURLOPT_URL, $url);
+
+	$result = curl_exec($curl);
+
+	if (!$result) {
+		error_log('Error: "' . curl_error($curl) . '" - Code: ' . curl_errno($curl));
+	}
+
+	curl_close($curl);
+}
+
+function sendSMS($no, $message) {
+	global $api_key;
+	$sms_url = 'http://www.kookoo.in/outbound/outbound_sms.php?phone_no='. $no .'&api_key='. $api_key .'&message='. $message;
+	curlGet($sms_url);
+}
 
 
 function checkIfValue($array, $key, $value) {
@@ -160,8 +180,11 @@ if (checkIfValue($_REQUEST, 'event', 'NewCall')) {
 			'Beautician' => [] 
 		);
 
+	$number = $_REQUEST['cid'];
+
 	$_SESSION['cat'] = 0;
 	$_SESSION['location'] = 0;
+	$_SESSION['fromno'] = $number;
 	$cat = $job_queue[ $_SESSION['cat'] ];
 	$loc = $job_locations[ $cat ][ $_SESSION['location'] ];
 
@@ -195,17 +218,21 @@ if (checkIfValue($_REQUEST, 'event', 'NewCall')) {
 } else if (checkIfValue($_REQUEST, 'event', 'GotDTMF') && checkIfValue($_SESSION, 'next_goto', 'job_1_op1')) {
 	$option = $_REQUEST['data'];
 	$option = $option[0];
+	$number = $_SESSION['fromno'];
 
 	if ($option == '1') {
 		// TODO send sms about similar jobs
+		sendSMS($number, 'Similar Jobs');
 		$r->addHangup();
 	} else if ($option == '2') {
 		// TODO CITY MESSAGE
+		sendSMS($number, 'City message');
 		$r->addHangup();
 	} else if ($option == '3') {
 		diffJbDiffLoc(false);
 	} else if ($option == '4') {
 		// TODO SALARY MESSAGE
+		sendSMS($number, 'Salary message');
 		$r->addHangup();
 	} else {
 		$r->addHangup();
@@ -214,9 +241,11 @@ if (checkIfValue($_REQUEST, 'event', 'NewCall')) {
 } else if (checkIfValue($_REQUEST, 'event', 'GotDTMF') && checkIfValue($_SESSION, 'next_goto', 'nolocation')) {
 	$option = $_REQUEST['data'];
 	$option = $option[0];
+	$number = $_SESSION['fromno'];
 
 	if ($option == '1') {
 		// send location job
+		sendSMS($number, 'location sms');
 		$r->addHangup();
 	} else if ($option == '9') {
 		$r->addPlayText('Please Record Your CV to send and press # after finishing your record!');
@@ -231,9 +260,11 @@ if (checkIfValue($_REQUEST, 'event', 'NewCall')) {
 } else if (checkIfValue($_REQUEST, 'event', 'GotDTMF') && checkIfValue($_SESSION, 'next_goto', 'nocat')) {
 	$option = $_REQUEST['data'];
 	$option = $option[0];
-	
+	$number = $_SESSION['fromno'];
+
 	if ($option == '1') {
 		// send sms for job list
+		sendSMS($number, 'job list sms');
 		$r->addHangup();
 	} else if ($option == '9') {
 		$r->addPlayText('Please Record Your CV to send and press # after finishing your record!');
