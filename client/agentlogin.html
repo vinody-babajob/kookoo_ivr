@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Agent Assigner</title>
+	<script type="text/javascript" src="jquery-2.1.4.js"></script>
+</head>
+<body>
+
+<div id="loginDiv">
+	<input type="text" id="loginNumber"/>
+	<Button id="login">Login</Button>
+</div>
+
+<div id="maincontainer" style="display:none">
+
+	<div>
+		<button id="agentstate">pause</button>
+	</div>
+	<div>
+		<input id="currentcust" />
+	</div>
+</div>
+
+<script type="text/javascript">
+    var createCookie = function(name, value, days) {
+	    var expires;
+	    if (days) {
+	        var date = new Date();
+	        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+	        expires = "; expires=" + date.toGMTString();
+	    }
+	    else {
+	        expires = "";
+	    }
+	    document.cookie = name + "=" + value + expires + "; path=/";
+	}
+
+	function getCookie(c_name) {
+	    if (document.cookie.length > 0) {
+	        c_start = document.cookie.indexOf(c_name + "=");
+	        if (c_start != -1) {
+	            c_start = c_start + c_name.length + 1;
+	            c_end = document.cookie.indexOf(";", c_start);
+	            if (c_end == -1) {
+	                c_end = document.cookie.length;
+	            }
+	            return unescape(document.cookie.substring(c_start, c_end));
+	        }
+	    }
+	    return "";
+	}
+
+	if (getCookie("agent") !== "") {
+		var agent = getCookie("agent");
+		$('#loginDiv').css('display', 'none');
+		$('#maincontainer').css('display', 'block');
+		attachEventSource(agent); 
+	}
+
+	$('#agentstate').click(function(){
+		var agent = getCookie("agent");
+		var agentstate = getCookie("agentstate");
+		var state = 'false';
+
+		if (agentstate == 0) {
+			state = 'true';
+			agentstate = 1;
+		}
+
+		var url = '/api/agent.php';
+		var formData = 'agent='+agent+'&state='+state+'&type=agentstate';
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: formData,
+			success: function(data, textStatus, jqXHR)
+		    {
+		        createCookie("agentstate", agentstate, 1);
+		    },
+		    error: function (jqXHR, textStatus, errorThrown)
+		    {
+		 
+		    }
+		});
+
+	});
+
+	$('#login').click(function(){
+		var agent = $('#loginNumber').val();
+		var url = '/api/agent.php';
+		var formData = 'agent='+agent+'&state=true&type=agentstate';
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: formData,
+			success: function(data, textStatus, jqXHR)
+		    {
+		        //data - response from server
+		        $('#loginDiv').css('display', 'none');
+		        $('#maincontainer').css('display', 'block');
+
+		        createCookie("agent", agent, 1);
+		        createCookie("agentstate", 1, 1);
+		        attachEventSource(agent); 
+		    },
+		    error: function (jqXHR, textStatus, errorThrown)
+		    {
+		 
+		    }
+		});
+	});
+
+	function attachEventSource(agentid) {
+		if (!!window.EventSource) {
+		  var source = new EventSource('/serverevent.php?agentid='+agentid);
+		  source.addEventListener('message', function(e) {
+			  console.log(e.data);
+			}, false);
+		} else {
+		  // Result to xhr polling :(
+		}
+	}
+
+	
+</script>
+
+</body>
+</html>

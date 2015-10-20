@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Agent Assigner</title>
+	<script type="text/javascript" src="jquery-2.1.4.js"></script>
+</head>
+<body>
+
+<form>
+	<input type="text" id="agent" />
+	<textarea id="customers"></textarea>
+	<Button id="assignAgents"> Assign Customers </Button>
+</form>
+
+<script type="text/javascript">
+	$('#assignAgents').click(function(){
+		var customers = $('#customers').val();
+		var agent = $('#agent').val();
+		var url = '/api/agent.php';
+		var formData = 'agent='+agent+'&customers='+customers+'&type=assignagent';
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: formData,
+			success: function(data, textStatus, jqXHR)
+		    {
+		        //data - response from server
+		        alert('Thanks');
+		    },
+		    error: function (jqXHR, textStatus, errorThrown)
+		    {
+		 
+		    }
+		});
+	});
+</script>
+
+</body>
+</html>
