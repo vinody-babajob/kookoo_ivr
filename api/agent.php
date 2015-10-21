@@ -56,7 +56,7 @@ function managePost() {
 		$redis = $getRedisInstance();
 
 		if ($redis) {
-			for ($customers as $customer )
+			foreach ($customers as $customer)
 				$redis->rpush($agentid.'_customer_queue', $customer);
 		}
 	}
