@@ -47,7 +47,7 @@ function managePost() {
 			nextCall($agentid); // modify logic to not call always
 		}
 	} else if ($type == "assignagent") {
-		$agentId = $_POST["agent"];
+		$agentid = $_POST["agent"];
 
 		$customers = $_POST["customers"];
 
