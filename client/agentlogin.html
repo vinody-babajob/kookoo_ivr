@@ -137,8 +137,15 @@
 		if (!!window.EventSource) {
 		  var source = new EventSource('/api/serverevent.php?agentid='+agentid);
 		  source.addEventListener('message', function(e) {
-			  console.log(e.data);
-			  $('#currentcust').val(e.data);
+			  var no = e.data;
+
+			  if (no == "done") {
+			  	$('#agentstate').html("play");
+			  	createCookie("agentstate", 0, 1);
+			  } else {
+			  	$('#currentcust').val(e.data);
+			  }
+			  
 			}, false);
 		} else {
 		  // Result to xhr polling :(

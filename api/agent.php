@@ -28,6 +28,8 @@ function nextAgentCall($data) {
 }
 
 function managePost() {
+	error_log( print_R($_POST,TRUE) );
+	
 	$type = $_POST["type"];
 
 	if ($type == "nextcall") {

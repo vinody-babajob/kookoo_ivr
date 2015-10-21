@@ -70,6 +70,9 @@ function nextCall($agentid) {
 
 
 				doOutboundCall($agentid, $nextcustomer_no);
+			} else {
+				$redis->set($agentid.'_currentcustomer', 'done');
+
 			}
 		}
 	}
