@@ -59,7 +59,7 @@ function managePost() {
 
 		if ($redis) {
 			foreach ($customers as $customer) {
-				if (trim($customer) != '' {
+				if (trim($customer) != '' ) {
 					error_log($agentid . '   ' . $customer);
 					$redis->rpush($agentid.'_customer_queue', $customer);
 				}
