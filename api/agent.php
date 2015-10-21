@@ -53,7 +53,9 @@ function managePost() {
 
 		$customers = $_POST["customers"];
 
-		$customers = explode(',',$customers,0);
+		$customers = explode(',',$customers);
+
+		error_log( print_R($customers,TRUE) );
 
 		$redis = getRedisInstance();
 

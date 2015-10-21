@@ -65,7 +65,8 @@ function sendCallDoneInfo($request, $stage) {
 if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
 
     $r->addPlayText("Please wail while we connecting");
-    $r->addDial($customerNumber, true); //phone number to dial
+    $r->addDial($customerNumber, true,  "1000", 10000, 'default', 'no', '+911130715347'); //phone number to dial
+    
 } elseif (isset($_REQUEST['event']) && $_REQUEST['event'] == 'Dial') {
     sendCallDoneInfo($_REQUEST, $STAGE1);
 
@@ -83,6 +84,7 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
         sendCallInfo($_REQUEST, $STAGE3);
     }
 } else {
+    sendCallInfo($_REQUEST, $STAGE3);
     $r->addHangup();
 }
 

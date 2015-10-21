@@ -141,6 +141,7 @@
 
 			  if (no == "done") {
 			  	$('#agentstate').html("play");
+			  	$('#currentcust').val(e.data);
 			  	createCookie("agentstate", 0, 1);
 			  } else {
 			  	$('#currentcust').val(e.data);
