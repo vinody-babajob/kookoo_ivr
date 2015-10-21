@@ -29,7 +29,7 @@ function nextAgentCall($data) {
 
 function managePost() {
 	error_log( print_R($_POST,TRUE) );
-	
+
 	$type = $_POST["type"];
 
 	if ($type == "nextcall") {
@@ -58,8 +58,12 @@ function managePost() {
 		$redis = getRedisInstance();
 
 		if ($redis) {
-			foreach ($customers as $customer)
-				$redis->rpush($agentid.'_customer_queue', $customer);
+			foreach ($customers as $customer) {
+				if (trim($customer) != '' {
+					error_log($agentid . '   ' . $customer);
+					$redis->rpush($agentid.'_customer_queue', $customer);
+				}
+			}
 		}
 	}
 
