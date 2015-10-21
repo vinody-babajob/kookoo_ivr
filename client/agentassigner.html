@@ -13,7 +13,8 @@
 </form>
 
 <script type="text/javascript">
-	$('#assignAgents').click(function(){
+	$('#assignAgents').click(function(e){
+		e.preventDefault();
 		var customers = $('#customers').val();
 		var agent = $('#agent').val();
 		var url = '/api/agent.php';
@@ -33,6 +34,8 @@
 		 
 		    }
 		});
+
+
 	});
 </script>
 

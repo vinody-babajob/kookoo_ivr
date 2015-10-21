@@ -4,7 +4,7 @@ require "predis/autoload.php";
 Predis\Autoloader::register();
 
 $api_key = 'KKdaca8671027e1efec66026e87a8ce4f4';
-$api_url = '';
+$api_url = 'http://52.10.138.252';
 $website_url = '';
 
 function curlGet($url) {

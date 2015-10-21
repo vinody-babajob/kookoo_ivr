@@ -57,7 +57,9 @@
 		attachEventSource(agent); 
 	}
 
-	$('#agentstate').click(function(){
+	$('#agentstate').click(function(e){
+		e.preventDefault();
+
 		var agent = getCookie("agent");
 		var agentstate = getCookie("agentstate");
 		var state = 'false';
@@ -86,7 +88,9 @@
 
 	});
 
-	$('#login').click(function(){
+	$('#login').click(function(e){
+		e.preventDefault();
+		
 		var agent = $('#loginNumber').val();
 		var url = '/api/agent.php';
 		var formData = 'agent='+agent+'&state=true&type=agentstate';
