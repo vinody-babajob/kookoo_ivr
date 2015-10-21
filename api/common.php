@@ -1,6 +1,6 @@
 <?php
 
-require "predis/autoload.php";
+require "../predis/autoload.php";
 Predis\Autoloader::register();
 
 $api_key = 'KKdaca8671027e1efec66026e87a8ce4f4';

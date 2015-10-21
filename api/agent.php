@@ -33,7 +33,7 @@ function managePost() {
 	if ($type == "nextcall") {
 		nextAgentCall($_POST);
 	} else if ($type == "agentstate") {
-		$redis = $getRedisInstance();
+		$redis = getRedisInstance();
 
 		if ($redis) {
 			$agentid = $_POST["agent"];
@@ -53,7 +53,7 @@ function managePost() {
 
 		$customers = explode(',',$customers,0);
 
-		$redis = $getRedisInstance();
+		$redis = getRedisInstance();
 
 		if ($redis) {
 			foreach ($customers as $customer)
