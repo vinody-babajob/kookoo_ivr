@@ -44,7 +44,7 @@ function getRedisInstance() {
 
 
 function doOutboundCall($from, $to) {
-	global $api_key;
+	global $api_key, $api_url;
 	$call_url = 'http://www.kookoo.in/outbound/outbound.php?phone_no='. $from .'&api_key='. $api_key;
 	$callback_url = 'http://' .$api_url. '/agentcustomerflow.php?custno=' . $to . '&agentid=' . $from;
 
