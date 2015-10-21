@@ -24,7 +24,7 @@ function getRedisInstance() {
 	$redis = null;
 
 	try {
-		$redis = new PredisClient();
+		$redis = new Predis\Client();
 
 		// This connection is for a remote server
 		/*
@@ -54,7 +54,7 @@ function doOutboundCall($from, $to) {
 
 function nextCall($agentid) {
 
-	$redis = $getRedisInstance();
+	$redis = getRedisInstance();
 
 	if ($redis) {
 		$agentavailable = $redis->get($agentid . '_state'); // get state of agent from redis

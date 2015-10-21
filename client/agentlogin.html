@@ -67,6 +67,8 @@
 		if (agentstate == 0) {
 			state = 'true';
 			agentstate = 1;
+		} else {
+			agentstate = 0;
 		}
 
 		var url = '/api/agent.php';
@@ -90,7 +92,7 @@
 
 	$('#login').click(function(e){
 		e.preventDefault();
-		
+
 		var agent = $('#loginNumber').val();
 		var url = '/api/agent.php';
 		var formData = 'agent='+agent+'&state=true&type=agentstate';
@@ -118,7 +120,7 @@
 
 	function attachEventSource(agentid) {
 		if (!!window.EventSource) {
-		  var source = new EventSource('/serverevent.php?agentid='+agentid);
+		  var source = new EventSource('/api/serverevent.php?agentid='+agentid);
 		  source.addEventListener('message', function(e) {
 			  console.log(e.data);
 			}, false);
