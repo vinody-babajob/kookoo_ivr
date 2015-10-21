@@ -57,10 +57,14 @@ function nextCall($agentid) {
 	$redis = getRedisInstance();
 
 	if ($redis) {
+		error_log("HasRedis");
 		$agentavailable = $redis->get($agentid . '_state'); // get state of agent from redis
 
 		if ($agentavailable) {
+			error_log("agentavailable");
+
 			if ($redis->llen($agentid . '_customer_queue') > 0) {
+				error_log("people in queue");
 				$nextcustomer_no = $redis->lpop($agentid . '_customer_queue'); // get next customer id redis
 				$redis->set($agentid.'_currentcustomer', $nextcustomer_no);
 
