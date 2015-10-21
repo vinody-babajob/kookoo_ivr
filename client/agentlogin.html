@@ -54,7 +54,18 @@
 		var agent = getCookie("agent");
 		$('#loginDiv').css('display', 'none');
 		$('#maincontainer').css('display', 'block');
-		attachEventSource(agent); 
+		attachEventSource(agent);
+
+		var agentstate = getCookie("agentstate");
+		var btntxt = '';
+
+		if (agentstate == 0) {
+		    btntxt = 'play';
+		} else {
+			btntxt = 'pause';
+		}
+
+		$('#agentstate').html(btntxt);
 	}
 
 	$('#agentstate').click(function(e){
@@ -63,12 +74,15 @@
 		var agent = getCookie("agent");
 		var agentstate = getCookie("agentstate");
 		var state = 'false';
+		var btntxt = 'pause';
 
 		if (agentstate == 0) {
 			state = 'true';
 			agentstate = 1;
+		    btntxt = 'pause';
 		} else {
 			agentstate = 0;
+			btntxt = 'play';
 		}
 
 		var url = '/api/agent.php';
@@ -81,6 +95,7 @@
 			success: function(data, textStatus, jqXHR)
 		    {
 		        createCookie("agentstate", agentstate, 1);
+		        $('#agentstate').html(btntxt)
 		    },
 		    error: function (jqXHR, textStatus, errorThrown)
 		    {
@@ -123,6 +138,7 @@
 		  var source = new EventSource('/api/serverevent.php?agentid='+agentid);
 		  source.addEventListener('message', function(e) {
 			  console.log(e.data);
+			  $('#currentcust').val(e.data);
 			}, false);
 		} else {
 		  // Result to xhr polling :(

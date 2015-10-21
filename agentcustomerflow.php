@@ -37,7 +37,7 @@ function curlPost($url, $fields) {
     $result = curl_exec($ch);
 
     //close connection
-    curl_close($ch)
+    curl_close($ch);
 }
 
 function sendCallDoneInfo($request, $stage) {
