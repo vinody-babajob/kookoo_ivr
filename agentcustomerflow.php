@@ -81,10 +81,10 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'NewCall') {
     if (isset($_REQUEST['process']) && $_REQUEST['process'] == 'dial') {
         sendCallDoneInfo($_REQUEST, $STAGE2);
     } else if (isset($_REQUEST['process']) && $_REQUEST['process'] == 'none') {
-        sendCallInfo($_REQUEST, $STAGE3);
+        sendCallDoneInfo($_REQUEST, $STAGE3);
     }
 } else {
-    sendCallInfo($_REQUEST, $STAGE3);
+    sendCallDoneInfo($_REQUEST, $STAGE3);
     $r->addHangup();
 }
 

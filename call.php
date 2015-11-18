@@ -106,7 +106,7 @@ function storeDataToExcel($filename, $data) {
 }
 
 function sendFileUpdateMail($subject, $body) {
-	$to = ['krishnamoorthym@babajob.com','arpithag@babajob.com'];
+	$to = ['krishnamoorthym@babajob.com'];
 	$from = 'vinody@babajob.com';
 	$from_name = 'VinodY';
 
